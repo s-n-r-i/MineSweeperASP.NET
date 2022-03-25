@@ -1,0 +1,13 @@
+﻿@model MineSweeperASP.NET.Models.MineSweeperIndexViewModel
+
+@{
+    ViewData["Title"] = "MineSweeper";
+}
+
+<form asp-controller="MineSweeper" asp-action="Stage" method="post">
+    <p>
+        @Html.LabelFor(model => model.StageType)
+        <select asp-for="StageType" asp-items="Html.GetEnumSelectList<StageType>()"></select>
+    </p>
+    <input type="submit" value="開始" />
+</form>

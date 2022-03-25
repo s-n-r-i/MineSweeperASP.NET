@@ -1,0 +1,42 @@
+﻿@model MineSweeperASP.NET.Models.MineSweeperStageViewModel
+
+@{
+    ViewData["Title"] = "Stage";
+}
+
+<p>
+    残：@Model.RemainingCellCount
+</p>
+<p>
+    状態：@Model.Status.ToString()
+</p>
+<table class="table-bordered">
+    @for (int i = 0; i < Model.RowCount; i++)
+    {
+        <tr>
+            @for (int j = 0; j < Model.ColumnCount; j++)
+            {
+                <td width="20px">
+                    @{
+                        if (Model.IsOpened(i, j))
+                        {
+                            @Model.GetOpenedString(i, j)
+                        }
+                        else
+                        {
+                            <a asp-action="Stage" asp-route-Id="@Model.GetIndex(i,j)">■</a>
+                        }
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+@if(@Model.IsEnd())
+{
+    <br />
+    <form asp-action="Stage" asp-route-Id="" method="get">
+        <input type="submit" value="もう一度" />
+    </form>
+}
