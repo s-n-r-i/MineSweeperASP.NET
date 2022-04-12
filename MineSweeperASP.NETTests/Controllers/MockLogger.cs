@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using MineSweeperASP.NET.Controllers;
-using System;
 
 namespace MineSweeperASP.NET.Controllers.Tests;
 

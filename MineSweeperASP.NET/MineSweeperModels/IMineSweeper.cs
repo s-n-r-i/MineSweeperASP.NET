@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MineSweeperASP.NET.MineSweeperModels;
+﻿namespace MineSweeperASP.NET.MineSweeperModels;
 
 /// <summary>
 /// MineSweeper本体 インターフェース

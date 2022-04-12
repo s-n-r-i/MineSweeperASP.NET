@@ -1,14 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using MineSweeperASP.NET.MineSweeperModels;
-using System;
-using System.Linq;
 
 namespace MineSweeperASP.NET.Models.Tests;
 
 /// <summary>
 /// Stage ViewModel test
 /// </summary>
-[TestClass()]
 public class MineSweeperStageViewModelTests
 {
 #pragma warning disable CS8618 // null 非許容のフィールドには、コンストラクターの終了時に null 以外の値が入っていなければなりません。Null 許容として宣言することをご検討ください。
@@ -21,8 +18,7 @@ public class MineSweeperStageViewModelTests
     /// <summary>
     /// 開始時共通処理
     /// </summary>
-    [TestInitialize]
-    public void TestInitialize()
+    public MineSweeperStageViewModelTests()
     {
         // 想定盤面
         // 23*10
@@ -48,37 +44,37 @@ public class MineSweeperStageViewModelTests
         VM = new(restore);
     }
 
-    [TestMethod("1.オブジェクト構築")]
+    [Fact(DisplayName = "1.オブジェクト構築")]
     public void MineSweeperViewModelTest()
     {
-        Assert.AreEqual(RowCount, VM.RowCount);
-        Assert.AreEqual(ColumnCount, VM.ColumnCount);
-        Assert.AreEqual(5, VM.RemainingCellCount);
+        Assert.Equal(RowCount, VM.RowCount);
+        Assert.Equal(ColumnCount, VM.ColumnCount);
+        Assert.Equal(5, VM.RemainingCellCount);
     }
 
-    [TestMethod("2.インデックス取得")]
+    [Fact(DisplayName = "2.インデックス取得")]
     public void GetIndexTest()
     {
         var index1 = VM.GetIndex(0, 0);
         var index2 = VM.GetIndex(0, 4);
         var index3 = VM.GetIndex(1, 0);
         var index4 = VM.GetIndex(1, 4);
-        Assert.AreEqual(0, index1);
-        Assert.AreEqual(4, index2);
-        Assert.AreEqual(5, index3);
-        Assert.AreEqual(9, index4);
+        Assert.Equal(0, index1);
+        Assert.Equal(4, index2);
+        Assert.Equal(5, index3);
+        Assert.Equal(9, index4);
     }
 
-    [TestMethod("3.セルが開かれているか")]
+    [Fact(DisplayName = "3.セルが開かれているか")]
     public void IsOpenedTest()
     {
         var isOpened1 = VM.IsOpened(0, 0);
         var isOpened2 = VM.IsOpened(1, 1);
-        Assert.IsTrue(isOpened1);
-        Assert.IsFalse(isOpened2);
+        Assert.True(isOpened1);
+        Assert.False(isOpened2);
     }
 
-    [TestMethod("4.セル表記文字列")]
+    [Fact(DisplayName = "4.セル表記文字列")]
     public void GetOpenedStringTest()
     {
         // セルが開いている場合の表記文字列確認(開いていない場合は空文字が返る)
@@ -88,37 +84,37 @@ public class MineSweeperStageViewModelTests
         var str4 = VM.GetOpenedString(1, 0);
         var str5 = VM.GetOpenedString(1, 2);
         var str6 = VM.GetOpenedString(1, 4);
-        Assert.AreEqual("2", str1);
-        Assert.AreEqual("3", str2);
-        Assert.AreEqual("*", str3);
-        Assert.AreEqual("", str4);
-        Assert.AreEqual("", str5);
-        Assert.AreEqual("0", str6);
+        Assert.Equal("2", str1);
+        Assert.Equal("3", str2);
+        Assert.Equal("*", str3);
+        Assert.Equal("", str4);
+        Assert.Equal("", str5);
+        Assert.Equal("0", str6);
     }
 
-    [TestMethod("5.終了フラグテスト")]
+    [Fact(DisplayName = "5.終了フラグテスト")]
     public void IsEndTest()
     {
         var restore1 = new RestoreData(StatusType.Failure, 1, 1, 1, 0, Enumerable.Empty<Cell>(), Enumerable.Empty<Cell>());
         var vm1 = new MineSweeperStageViewModel(restore1);
         var restore2 = new RestoreData(StatusType.Success, 1, 1, 1, 0, Enumerable.Empty<Cell>(), Enumerable.Empty<Cell>());
         var vm2 = new MineSweeperStageViewModel(restore2);
-        Assert.IsFalse(VM.IsEnd());
-        Assert.IsTrue(vm1.IsEnd());
-        Assert.IsTrue(vm2.IsEnd());
+        Assert.False(VM.IsEnd());
+        Assert.True(vm1.IsEnd());
+        Assert.True(vm2.IsEnd());
     }
 
-    [TestMethod("6.例外(1)")]
+    [Fact(DisplayName = "6.例外(1)")]
     public void GetIndexExceptionTest1()
     {
         // 行指定が範囲外ならば例外
-        _ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => VM.GetIndex(0, 5));
+        Assert.Throws<ArgumentOutOfRangeException>(() => VM.GetIndex(0, 5));
     }
 
-    [TestMethod("7.例外(2)")]
+    [Fact(DisplayName = "7.例外(2)")]
     public void GetIndexExceptionTest2()
     {
         // 列指定が範囲外ならば例外
-        _ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => VM.GetIndex(2, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => VM.GetIndex(2, 0));
     }
 }

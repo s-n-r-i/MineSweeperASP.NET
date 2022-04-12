@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MineSweeperASP.NET.MineSweeperModels.Tests;
+﻿namespace MineSweeperASP.NET.MineSweeperModels.Tests;
 
 /// <summary>
 /// 初期データジェネレーター テスト用stub

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MineSweeperASP.NET.MineSweeperModels;
+﻿namespace MineSweeperASP.NET.MineSweeperModels;
 
 /// <summary>
 /// 初期データジェネレーター インターフェース
